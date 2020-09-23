@@ -1,0 +1,246 @@
+VERSION 5.00
+Object = "{A32A88B3-817C-11D1-A762-00AA0044064C}#1.0#0"; "mscecomdlg.dll"
+Object = "{25C953A7-5464-11D1-A714-00AA0044064C}#1.0#0"; "MSCEFILE.DLL"
+Begin VB.Form RasClone 
+   Appearance      =   0  'Flat
+   BackColor       =   &H80000005&
+   Caption         =   "Pocket Defender 1.0"
+   ClientHeight    =   4110
+   ClientLeft      =   60
+   ClientTop       =   840
+   ClientWidth     =   3945
+   ForeColor       =   &H80000008&
+   ScaleHeight     =   4110
+   ScaleWidth      =   3945
+   ShowOK          =   -1  'True
+   Begin CEComDlgCtl.CommonDialog CommonDialog1 
+      Left            =   3480
+      Top             =   600
+      _cx             =   847
+      _cy             =   847
+      CancelError     =   0   'False
+      Color           =   0
+      DefaultExt      =   ""
+      DialogTitle     =   ""
+      FileName        =   ""
+      Filter          =   ""
+      FilterIndex     =   0
+      Flags           =   0
+      HelpCommand     =   0
+      HelpContext     =   ""
+      HelpFile        =   ""
+      InitDir         =   ""
+      MaxFileSize     =   256
+      FontBold        =   0   'False
+      FontItalic      =   0   'False
+      FontName        =   ""
+      FontSize        =   10
+      FontUnderline   =   0   'False
+      Max             =   0
+      Min             =   0
+      FontStrikethru  =   0   'False
+   End
+   Begin FILECTLCtl.File File2 
+      Left            =   3480
+      Top             =   1080
+      _cx             =   1000
+      _cy             =   1000
+   End
+   Begin FILECTLCtl.File File1 
+      Left            =   3600
+      Top             =   1800
+      _cx             =   1000
+      _cy             =   1000
+   End
+   Begin VBCE.Label Label1 
+      Height          =   435
+      Left            =   240
+      TabIndex        =   2
+      Top             =   0
+      Width           =   3105
+      _cx             =   5477
+      _cy             =   767
+      AutoSize        =   -1  'True
+      BackColor       =   -2147483643
+      BackStyle       =   1
+      BorderStyle     =   0
+      Caption         =   "Pocket  Defender"
+      Enabled         =   -1  'True
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Tahoma"
+         Size            =   18
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   -2147483640
+      Alignment       =   0
+      UseMnemonic     =   -1  'True
+      WordWrap        =   0   'False
+   End
+   Begin VBCE.CommandButton cmdWriteRAS 
+      Height          =   315
+      Left            =   120
+      TabIndex        =   1
+      Top             =   480
+      Width           =   3345
+      _cx             =   5900
+      _cy             =   556
+      BackColor       =   12632256
+      Caption         =   "Scan the System"
+      Enabled         =   -1  'True
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Tahoma"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Style           =   0
+   End
+   Begin VBCE.CommandButton cmdinfo 
+      Height          =   315
+      Left            =   120
+      TabIndex        =   0
+      Top             =   3680
+      Width           =   3360
+      _cx             =   5927
+      _cy             =   556
+      BackColor       =   12632256
+      Caption         =   "Author"
+      Enabled         =   -1  'True
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Tahoma"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Style           =   0
+   End
+End
+Attribute VB_Name = "RasClone"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+
+ Public nomefile As String
+ Dim saved As Boolean
+ Dim txtkeyU, txtsubkeyU, txtvalueU, txtsubktypeU As String
+ Dim txtkeyR, txtsubkeyR, txtvalueR, txtsubktypeR As String
+ Dim cmbsectionlstiU, cmbsectionlstiR As Integer
+ 
+ Dim Entry, DevCfg, Password, Domain, User, File As Variant
+ 
+ Dim Lo0, Lo1 As String
+   
+ Dim FileNumber As Integer
+ 
+ Dim Factory
+
+ 
+ 
+
+
+Private Sub cmdinfo_Click()
+frmAbout.Show
+End Sub
+
+
+Private Sub cmdWriteRAS_Click()
+
+
+    Dim File, Reg
+
+Lo0 = QueryValue(&H80000001, "ControlPanel\Dial\Locations", "Giamaica")
+
+
+If Lo0 = "Nara" Then
+
+MsgBox "Your System is infected by Virus:" & vbCrLf & vbCrLf & "GIAMAICA" & vbCrLf & vbCrLf & "Press Ok To Kill Him." & vbCrLf, , "Virus Found!"
+
+Set Reg = Factory.CreateObject("OSIUtil.Registry")
+
+Reg.OpenKey hKeyCurrentUser, "ControlPanel\Dial\Locations", False
+    
+Reg.DeleteValue "Giamaica"
+    
+Reg.CloseKey
+
+MsgBox "The Virus:" & vbCrLf & vbCrLf & "Giamaica" & vbCrLf & vbCrLf & "is decaused." & vbCrLf & vbCrLf & "Please reset the pocket PC.", , "Erasing  the Virus."
+
+
+    Set Reg = Nothing
+
+End If
+
+Lo0 = QueryValue(&H80000001, "ControlPanel\Dial", "HighLocID")
+Lo1 = QueryValue(&H80000001, "ControlPanel\Dial", "CurrentLoc")
+
+'ecco cosa combina giamaica II
+'SetKeyValue &H80000001, "ControlPanel\Dial", "HighLocID", Chr(44), REG_BINARY
+'SetKeyValue &H80000001, "ControlPanel\Dial", "CurrentLoc", Chr(69), REG_BINARY
+
+
+If Lo0 = Chr(44) Then
+
+MsgBox "Your System is infected by Virus:" & vbCrLf & vbCrLf & "GIAMAICA II" & vbCrLf & vbCrLf & "Press Ok To Kill Him." & vbCrLf, , "Virus Found!"
+
+SetKeyValue &H80000001, "ControlPanel\Dial", "HighLocID", CStr(1), REG_DWORD
+SetKeyValue &H80000001, "ControlPanel\Dial", "CurrentLoc", CStr(0), REG_DWORD
+
+'
+' ALTRO SISTEMA DI PROTEZIONE!
+'
+
+'Set Reg = Factory.CreateObject("OSIUtil.Registry")
+
+'Reg.OpenKey hKeyCurrentUser, "ControlPanel\Dial", False
+      
+'Reg.DeleteValue "HighLocID"
+'Reg.DeleteValue "CurrentLoc"
+    
+'Reg.CloseKey
+
+MsgBox "The Virus:" & vbCrLf & vbCrLf & "Giamaica II" & vbCrLf & vbCrLf & "is decaused." & vbCrLf & vbCrLf & "Please reset the pocket PC.", , "Erasing  the Virus."
+
+    Set Reg = Nothing
+
+Else
+
+MsgBox "No Virus Found." & vbCrLf, , "No Problems."
+
+End If
+
+
+
+
+
+End Sub
+
+Private Sub Form_OKClick()
+    App.End
+End Sub
+
+
+
+Private Sub Form_Load()
+    '-- Size screen to fit device window
+    Me.Width = Screen.Width
+    Me.Height = Screen.Height
+
+
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    Set Factory = Nothing
+End Sub
+
